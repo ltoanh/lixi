@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lì Xì May Mắn - Neobrutalism Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Container cho hiệu ứng hoa đào rơi -->
+    <div id="blossom-container"></div>
+
+    <!-- Nhạc nền -->
+    <audio id="bg-music" loop autoplay muted>
+        <source src="Thần Tài Đến Remix - Hoàng Ly x Orinn  Thần Tài Đến Thần Tài Đến Nhạc Tết REMIX Xuân BÍNH NGỌ 2026.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control" id="music-toggle">
+        <span class="icon">🎵</span>
+    </div>
+
+    <div id="app">
+        <header class="header">
+            <h1 class="title">CHÚC MỪNG NĂM MỚI 2026</h1>
+            <div class="video-wrapper">
+                <video id="horse-video" autoplay loop muted playsinline>
+                    <source src="ngua.mp4" type="video/mp4">
+                    <!-- Placeholder Nếu không có video -->
+                    <div class="video-placeholder">🐴</div>
+                </video>
+            </div>
+            <p class="subtitle">Trượt để chọn bao lì xì may mắn!</p>
+        </header>
+
+        <main class="slider-wrapper">
+            <div class="slider-container" id="lixi-slider">
+                <!-- 8 bao lì xì sẽ được trượt qua lại -->
+            </div>
+        </main>
+
+        <div id="overlay" class="overlay hidden">
+            <canvas id="fireworks-canvas"></canvas>
+            <div id="modal" class="modal">
+                <div id="step-wish" class="step hidden">
+                    <div class="wish-card">
+                        <div class="card-header">LỜI CHÚC TỪ NGỰA CON 🐴</div>
+                        <div class="card-body">
+                            <p id="wish-text"></p>
+                        </div>
+                    </div>
+                    <button id="btn-continue" class="btn hidden">TIẾP TỤC</button>
+                </div>
+ 
+                <div id="step-reveal" class="step hidden">
+                    <div class="reveal-container" id="reveal-screen">
+                        <div class="reveal-card" id="money-card">
+                            <div class="glow-effect"></div>
+                            <div class="card-front">
+                                <span id="money-amount" class="amount">0</span>
+                                <span class="currency">VNĐ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
