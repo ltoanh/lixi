@@ -43,9 +43,6 @@ const blossomContainer = document.getElementById('blossom-container');
 
 let shuffledAmounts = [];
 let selectedAmount = 0;
-let isDragging = false;
-let startX, scrollLeft;
-let animationId;
 let currentPos = 0;
 
 function shuffle(array) {
@@ -72,132 +69,31 @@ function init() {
     slider.innerHTML = '';
     shuffledAmounts = shuffle([...amounts]);
     
-    // Tạo card gốc
-    const cards = [];
-    for (let i = 0; i < 8; i++) {
+    // Tạo 8 bao lì xì và xếp thành hình nan quạt
+    const totalCards = amounts.length;
+    const fanAngle = 120; // 120 độ theo yêu cầu
+    const startAngle = -(fanAngle / 2); // -60 độ
+    const stepAngle = fanAngle / (totalCards - 1); // ~17.14 độ
+
+    for (let i = 0; i < totalCards; i++) {
         const item = document.createElement('div');
         item.className = 'lixi-item';
         item.dataset.amount = shuffledAmounts[i];
-        item.addEventListener('mousedown', () => item.dataset.clicked = "true");
-        item.addEventListener('mouseup', () => {
-            if(item.dataset.clicked === "true" && !isDragging) {
-                startOpening(shuffledAmounts[i], item);
-            }
-            item.dataset.clicked = "false";
-        });
-        cards.push(item);
-    }
-
-    // Nhân bản để tạo vòng lặp vô tận (cloning)
-    const cloneCount = 4;
-    for(let i = 0; i < cloneCount; i++) {
-        slider.appendChild(cards[8 - cloneCount + i].cloneNode(true));
-    }
-    cards.forEach(card => slider.appendChild(card));
-    for(let i = 0; i < cloneCount; i++) {
-        slider.appendChild(cards[i].cloneNode(true));
-    }
-
-    // Xử lý sự kiện click cho các thẻ clone
-    slider.querySelectorAll('.lixi-item').forEach(item => {
-        item.addEventListener('mousedown', () => item.dataset.clicked = "true");
-        item.addEventListener('mouseup', (e) => {
-            if(item.dataset.clicked === "true" && !isDragging) {
-                const amount = item.dataset.amount || shuffledAmounts[0];
-                startOpening(parseInt(amount), item);
-            }
-            item.dataset.clicked = "false";
-        });
-    });
-
-    // Infinity Scroll Logic
-    setupInfinityScroll();
-    createBlossoms();
-}
-
-function setupInfinityScroll() {
-    let x = 0;
-    const itemWidth = 180 + 24; // width + gap
-    const totalWidth = 8 * itemWidth;
-    let dragStartX = 0;
-    let initialX = 0;
-
-    function update() {
-        if (!isDragging) {
-            x -= 0.5; // Tự động trượt chậm
-            if (x <= -totalWidth) x = 0;
-            if (x > 0) x = -totalWidth;
-            slider.style.transform = `translateX(${x}px)`;
-        }
-        animationId = requestAnimationFrame(update);
-    }
-    
-    // Mouse Events
-    sliderWrapper.addEventListener('mousedown', (e) => {
-        dragStartX = e.pageX;
-        initialX = x;
-        isDragging = false; // Reset về false khi vừa nhấn xuống
-        sliderWrapper.style.cursor = 'grabbing';
-        cancelAnimationFrame(animationId);
         
-        const onMouseMove = (moveEvent) => {
-            const deltaX = moveEvent.pageX - dragStartX;
-            if (Math.abs(deltaX) > 5) { // Chỉ coi là kéo nếu di chuyển > 5px
-                isDragging = true;
-                x = initialX + deltaX;
-                
-                // Infinity loop check
-                if (x > 0) x -= totalWidth;
-                if (x < -totalWidth) x += totalWidth;
-                
-                slider.style.transform = `translateX(${x}px)`;
-            }
-        };
+        // Tính toán góc quay cho từng card
+        const rotation = startAngle + (i * stepAngle);
+        item.style.setProperty('--rot', `${rotation}deg`);
+        item.style.transform = `translateX(-50%) rotate(${rotation}deg)`;
+        item.style.zIndex = i + 1;
 
-        const onMouseUp = () => {
-            window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('mouseup', onMouseUp);
-            sliderWrapper.style.cursor = 'grab';
-            isDragging = false;
-            update();
-        };
+        item.addEventListener('click', () => {
+            startOpening(shuffledAmounts[i], item);
+        });
 
-        window.addEventListener('mousemove', onMouseMove);
-        window.addEventListener('mouseup', onMouseUp);
-    });
+        slider.appendChild(item);
+    }
 
-    // Touch Events
-    sliderWrapper.addEventListener('touchstart', (e) => {
-        dragStartX = e.touches[0].pageX;
-        initialX = x;
-        isDragging = false;
-        cancelAnimationFrame(animationId);
-
-        const onTouchMove = (moveEvent) => {
-            const deltaX = moveEvent.touches[0].pageX - dragStartX;
-            if (Math.abs(deltaX) > 5) {
-                isDragging = true;
-                x = initialX + deltaX;
-                
-                if (x > 0) x -= totalWidth;
-                if (x < -totalWidth) x += totalWidth;
-                
-                slider.style.transform = `translateX(${x}px)`;
-            }
-        };
-
-        const onTouchEnd = () => {
-            window.removeEventListener('touchmove', onTouchMove);
-            window.removeEventListener('touchend', onTouchEnd);
-            isDragging = false;
-            update();
-        };
-
-        window.addEventListener('touchmove', onTouchMove, {passive: false});
-        window.addEventListener('touchend', onTouchEnd);
-    }, {passive: true});
-
-    update();
+    createBlossoms();
 }
 
 
@@ -398,7 +294,7 @@ function initFireworks() {
     setTimeout(() => {
         cancelAnimationFrame(animationFrame);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }, 10000);
+    }, 20000);
 }
 
 init();

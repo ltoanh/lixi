@@ -6,10 +6,10 @@ Chào mừng bạn đến với dự án **Lì Xì May Mắn 2026**, một phầ
 
 - **Thiết kế Neobrutalism**: Phong cách thiết kế hiện đại, táo bạo với các đường nét sắc sảo và màu sắc tương phản cao.
 - **Hiệu ứng Hoa Đào rơi**: Không khí Tết tràn ngập với hiệu ứng cánh hoa đào rơi nhẹ nhàng.
-- **Slider Lì Xì**: Trải nghiệm trượt để chọn bao lì xì yêu thích.
+- **Xòe Lì Xì Hình Nan Quạt**: Bao lì xì được xòe ra tinh tế trong góc 120 độ, giúp bạn dễ dàng chọn lựa lộc đầu năm.
 - **Pháo hoa chúc mừng**: Hiệu ứng pháo hoa rực rỡ khi bạn nhận được lộc đầu năm.
 - **Nhạc nền Tết**: Giai điệu "Thần Tài Đến" remix mang lại không khí sôi động.
-- **Tương thích di động**: Giao diện được tối ưu hóa cho mọi thiết bị.
+- **Tương thích di động**: Giao diện được tối ưu hóa, tự động điều chỉnh kích thước để hiển thị hoàn hảo trên điện thoại.
 
 ## 🚀 Công nghệ sử dụng
 

@@ -172,23 +172,38 @@ body {
 /* Slider (Infinity Carousel) */
 .slider-wrapper {
   width: 100%;
-  padding: 2rem 0;
-  overflow: hidden;
+  padding: 4rem 0;
+  overflow: visible;
   position: relative;
-  cursor: grab;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+  /* Giảm chiều cao cho mobile */
 }
 
 .slider-container {
+  position: relative;
   display: flex;
-  gap: 1.5rem;
-  padding: 1rem 0;
-  width: max-content;
+  justify-content: center;
+  align-items: flex-end;
+  /* Căn dưới để quay từ đáy */
+  width: 0;
+  /* Thu hẹp container để các card chồng lên nhau tại tâm */
+  height: 240px;
+  /* Giảm chiều cao container cho mobile */
   will-change: transform;
 }
 
 .lixi-item {
-  flex: 0 0 180px;
-  height: 280px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  /* Giảm từ 180px xuống 120px */
+  height: 180px;
+  /* Giảm từ 280px xuống 180px */
   background-image: url('lixi.jpg');
   background-size: cover;
   background-position: center;
@@ -199,9 +214,16 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
   user-select: none;
-  transition: transform 0.2s;
+  transition: transform 0.3s ease, z-index 0s, box-shadow 0.3s;
+  transform-origin: bottom center;
+  cursor: pointer;
+}
+
+.lixi-item:hover {
+  z-index: 100 !important;
+  transform: translateX(-50%) translateY(-20px) rotate(var(--rot)) scale(1.1) !important;
+  box-shadow: 12px 12px 0px var(--black);
 }
 
 /* Rung nhẹ khi click */
@@ -407,14 +429,16 @@ body {
     height: 250px;
   }
 
+  .slider-wrapper {
+    min-height: 500px;
+  }
+
   .slider-container {
-    justify-content: center;
-    overflow-x: visible;
-    gap: 2rem;
+    height: 420px;
   }
 
   .lixi-item {
-    flex: 0 0 250px;
+    width: 250px;
     height: 380px;
   }
 }
